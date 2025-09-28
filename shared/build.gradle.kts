@@ -7,15 +7,24 @@ plugins {
 }
 
 kotlin {
+    jvm()
+
     androidTarget {
         compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_11)
+            jvmTarget.set(JvmTarget.JVM_21)
         }
     }
     
     js {
-        outputModuleName = "shared"
-        browser()
+        outputModuleName = "webApp"
+        browser {
+            //binaries.executable()
+            testTask {
+                useKarma {
+                    useFirefox()
+                }
+            }
+        }
         binaries.library()
         generateTypeScriptDefinitions()
         compilerOptions {
@@ -31,7 +40,13 @@ kotlin {
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
-            implementation(libs.kotlin.testJunit)
+            //implementation(libs.kotlin.testJunit)
+        }
+        jvmMain.dependencies {
+
+        }
+        androidMain.dependencies {
+
         }
     }
 }
@@ -40,8 +55,8 @@ android {
     namespace = "com.taskmanager.shared"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()

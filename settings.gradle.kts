@@ -3,6 +3,7 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {
     repositories {
+        maven { url = uri("https://repo.spring.io/snapshot") }
         google {
             mavenContent {
                 includeGroupAndSubgroups("androidx")
@@ -28,5 +29,6 @@ dependencyResolutionManagement {
     }
 }
 
-include(":composeApp")
 include(":shared")
+include(":server")
+include(":composeApp")

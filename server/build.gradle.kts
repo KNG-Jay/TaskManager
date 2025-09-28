@@ -1,53 +1,61 @@
+import org.jetbrains.kotlin.gradle.plugin.KotlinPlatformType.jvm
+
 plugins {
-    project(libs.plugins.kotlinJVM)
-	kotlin("plugin.spring") version "2.2.10"
-	id("org.springframework.boot") version "4.0.0-SNAPSHOT"
-	id("io.spring.dependency-management") version "1.1.7"
+    alias(libs.plugins.kotlinMultiplatform)
+    alias(libs.plugins.kotlinSpring)
+    alias(libs.plugins.kotlinx.serialization)
+	alias(libs.plugins.spring.boot)
+	alias(libs.plugins.spring.dependency.management)
 }
 
-group = "com.taskmanager"
+group = "com.taskmanager.server"
 version = "0.0.1-SNAPSHOT"
 description = "DB: MongoDB, BACKEND: SPRINGBOOT KMP, FRONTEND: REACT TYPESCRIPT, CONTAINERS: DOCKER KUBERNETES"
 
-java {
-	toolchain {
-		languageVersion = JavaLanguageVersion.of(24)
-	}
-}
-
-repositories {
-	mavenCentral()
-	maven { url = uri("https://repo.spring.io/snapshot") }
-}
-
-dependencies {
-    implementation(project(":shared"))
-	implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
-	implementation("org.springframework.boot:spring-boot-starter-security")
-	implementation("org.springframework.boot:spring-boot-starter-web")
-
-    implementation(platform("org.mongodb:mongodb-driver-bom:5.6.0"))
-    implementation("org.mongodb:mongodb-driver-kotlin-coroutine")
-    implementation("org.mongodb:bson-kotlinx")
-
-	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-	implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("org.springdoc:springdoc-openapi-ui:2.8.13")
-    implementation("org.springdoc:springdoc-openapi-kotlin:2.8.13")
-
-	developmentOnly("org.springframework.boot:spring-boot-devtools")
-
-	testImplementation("org.springframework.boot:spring-boot-starter-test")
-	testImplementation("org.springframework.security:spring-security-test")
-    testImplementation(libs.kotlin.test)
-    testImplementation(libs.kotlin.testJunit)
-	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-}
-
 kotlin {
-	compilerOptions {
-		freeCompilerArgs.addAll("-Xjsr305=strict", "-Xannotation-default-target=param-property")
-	}
+    jvm()
+
+    compilerOptions {
+        freeCompilerArgs.addAll("-Xjsr305=strict", "-Xannotation-default-target=param-property")
+    }
+
+    sourceSets {
+        val commonMain by getting {
+            dependencies {
+
+            }
+        }
+        val commonTest by getting {
+            dependencies {
+
+            }
+        }
+        val jvmMain by getting {
+            dependencies {
+                implementation(project(":shared"))
+                implementation(libs.spring.boot.starter.data.mongodb)
+                implementation(libs.spring.boot.starter.security)
+                implementation(libs.spring.boot.starter.web)
+                implementation(libs.mongodb.driver.bom)
+                implementation(libs.mongodb.driver.kotlin.coroutine)
+                implementation(libs.bson.kotlinx)
+
+                //implementation(libs.jackson.module.kotlin)
+                implementation(libs.kotlin.reflect)
+                implementation(libs.springdoc.openapi.ui)
+                implementation(libs.springdoc.openapi.kotlin)
+
+                implementation(libs.spring.boot.devtools)
+
+                implementation(libs.spring.boot.starter.test)
+                implementation(libs.spring.security.test)
+                implementation(libs.kotlin.test)
+                implementation(libs.kotlin.testJunit)
+                implementation(libs.junit)
+                runtimeOnly(libs.junit.platform.launcher)
+            }
+        }
+    }
 }
 
 tasks.withType<Test> {
