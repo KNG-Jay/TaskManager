@@ -7,7 +7,9 @@ plugins {
 }
 
 kotlin {
-    jvm()
+    jvm {
+
+    }
 
     androidTarget {
         compilerOptions {
