@@ -33,12 +33,7 @@
 ################################################################################
 # Create a final stage for running your application.
 #
-# The following commands copy the output from the "build" stage above and tell
-# the container runtime to execute it when the image is run. Ideally this stage
-# contains the minimal runtime dependencies for the application as to produce
-# the smallest image possible. This often means using a different and smaller
-# image than the one used for building the application, but for illustrative
-# purposes the "base" image is used here.
+# TODO: ( FIX THE DOCKER ENVIRONMENT )
 FROM eclipse-temurin:21-jre-alpine AS final
 
 # Create a non-privileged user that the app will run under.

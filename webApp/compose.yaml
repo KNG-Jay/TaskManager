@@ -10,7 +10,8 @@
 services:
   server:
     build:
-      context: .
+      context: ..
+      dockerfile: ./webApp/Dockerfile
     environment:
       NODE_ENV: production
     ports:

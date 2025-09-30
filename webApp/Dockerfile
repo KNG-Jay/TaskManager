@@ -6,14 +6,15 @@
 
 # Want to help us make this template better? Share your feedback here: https://forms.gle/ybq9Krt8jtBL3iCk7
 
+# TODO: ( FIX FRONTEND DOCKER ENVIRONMENT )
 ARG NODE_VERSION=24.8.0
 
 ################################################################################
 # Use node image for base image for all stages.
-FROM node:${NODE_VERSION}-alpine as base
+FROM node:${NODE_VERSION} as base
 
 # Set working directory for all build stages.
-WORKDIR /usr/src/app
+WORKDIR /app
 
 
 ################################################################################
@@ -24,7 +25,7 @@ FROM base as deps
 # Leverage a cache mount to /root/.npm to speed up subsequent builds.
 # Leverage bind mounts to package.json and package-lock.json to avoid having to copy them
 # into this layer.
-RUN --mount=type=bind,source=package.json,target=package.json \
+RUN --mount=type=bind,source=webApp/package.json,target=package.json \
     --mount=type=bind,source=package-lock.json,target=package-lock.json \
     --mount=type=cache,target=/root/.npm \
     npm ci --omit=dev
@@ -35,15 +36,16 @@ FROM deps as build
 
 # Download additional development dependencies before building, as some projects require
 # "devDependencies" to be installed to build. If you don't need this, remove this step.
-RUN --mount=type=bind,source=package.json,target=package.json \
+RUN --mount=type=bind,source=webApp/package.json,target=package.json \
     --mount=type=bind,source=package-lock.json,target=package-lock.json \
     --mount=type=cache,target=/root/.npm \
-    npm ci
+    npm cache clean --force && npm ci
 
 # Copy the rest of the source files into the image.
-COPY . .
+COPY ./webApp .
 # Run the build script.
-RUN npm run build
+RUN npm run build && ls -la /app
+
 
 ################################################################################
 # Create a new stage to run the application with minimal runtime dependencies
@@ -61,12 +63,12 @@ COPY package.json .
 
 # Copy the production dependencies from the deps stage and also
 # the built application from the build stage into the image.
-COPY --from=deps /usr/src/app/node_modules ./node_modules
-COPY --from=build /usr/src/app/./build ././build
+COPY --from=deps /app/node_modules /app/node_modules
+COPY --from=build /app/dist /app/build
 
 
 # Expose the port that the application listens on.
 EXPOSE 5173
 
 # Run the application.
-CMD run
+CMD ["npm", "start"]
