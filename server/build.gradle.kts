@@ -10,7 +10,7 @@ plugins {
 
 group = "com.taskmanager.server"
 version = "0.0.1-SNAPSHOT"
-description = "DB: MongoDB, BACKEND: SPRINGBOOT KMP, FRONTEND: REACT TYPESCRIPT, CONTAINERS: DOCKER KUBERNETES"
+description = "DB: MongoDB-Atlas, BACKEND: SPRINGBOOT-Kotlin, FRONTEND: VITE REACT-Ts, CONTAINERS: DOCKER MINIKUBE"
 
 kotlin {
     jvm()
