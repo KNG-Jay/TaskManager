@@ -14,7 +14,7 @@ description = "DB: MongoDB-Atlas, BACKEND: SPRINGBOOT-Kotlin, FRONTEND: VITE REA
 kotlin {
     @Suppress("OPT_IN_USAGE")
     jvm().mainRun {
-        mainClass = "com.taskmanager.server.MainKt"
+        mainClass = "com.taskmanager.server.ServerApplicationKt"
     }
 
     compilerOptions {
@@ -30,6 +30,7 @@ kotlin {
         }
         val jvmMain by getting {
             dependencies {
+                implementation(libs.kotlin.std)
                 implementation(libs.spring.boot.starter.data.mongodb)
                 implementation(libs.spring.boot.starter.security)
                 implementation(libs.spring.boot.starter.web)
@@ -61,6 +62,6 @@ tasks.named<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar>("shadowJ
     archiveBaseName.set("server-jvm")
     archiveVersion.set("1.0")
     manifest {
-        attributes["Main-Class"] = "com.example.MainKt"
+        attributes["Main-Class"] = "com.taskmanager.server.ServerApplicationKt"
     }
 }

@@ -49,11 +49,11 @@ FROM eclipse-temurin:21-jre-alpine AS final
 #    appuser
 #USER appuser
 
-EXPOSE 8080
+# Port Location
+EXPOSE 8081
 
-COPY server/build/libs/server-metadata-0.0.1-SNAPSHOT.jar /app/server-metadata.jar
 # Copy Over Jar
-COPY server/build/libs/server-jvm-0.0.1-SNAPSHOT.jar /app/server-jvm.jar
+COPY server/build/libs/server-jvm-1.0-all.jar /app/server-jvm.jar
 # Change Directory
 WORKDIR /app
 

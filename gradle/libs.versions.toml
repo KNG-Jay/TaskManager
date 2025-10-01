@@ -21,6 +21,7 @@ springdocOpenapi = "1.8.0"
 coil = "3.3.0"
 
 [libraries]
+kotlin-std = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
 bson-kotlinx = { module = "org.mongodb:bson-kotlinx", version.ref = "mongodbDriverBom" }
 jackson-module-kotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin" }
 junit = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit" }

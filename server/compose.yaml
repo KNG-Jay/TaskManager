@@ -10,7 +10,7 @@ services:
       context: ..
       dockerfile: ./server/Dockerfile
     ports:
-      - "8080:8080"
+      - "8081:8081"
     dns:
       - 8.8.8.8
       - 8.8.4.4
@@ -18,6 +18,8 @@ services:
       SPRING_PROFILES_ACTIVE: "dev"
       # TODO: ( MAKE THIS MODULAR -- NO HARDCODED SENSITIVE DATA )
       MONGODB_URI: "mongodb+srv://KNG-Jay:Iwaki0CjkHTtiHTt@clustermain.uljbnaj.mongodb.net/?retryWrites=true&w=majority&appName=ClusterMain"
+      PORT: "8081"
+
 
 #  mongo:
 #    image: mongo:latest
