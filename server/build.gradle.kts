@@ -32,15 +32,17 @@ kotlin {
         }
         val jvmMain by getting {
             dependencies {
-                implementation(project(":shared"))
                 implementation(libs.spring.boot.starter.data.mongodb)
                 implementation(libs.spring.boot.starter.security)
                 implementation(libs.spring.boot.starter.web)
                 implementation(libs.mongodb.driver.bom)
                 implementation(libs.mongodb.driver.kotlin.coroutine)
                 implementation(libs.bson.kotlinx)
-
+                implementation(libs.coil.compose)
+                implementation(libs.kotlinx.serialization.json)
+                implementation(libs.kotlinx.coroutines)
                 //implementation(libs.jackson.module.kotlin)
+
                 implementation(libs.kotlin.reflect)
                 implementation(libs.springdoc.openapi.ui)
                 implementation(libs.springdoc.openapi.kotlin)
@@ -51,7 +53,7 @@ kotlin {
                 implementation(libs.spring.security.test)
                 implementation(libs.kotlin.test)
                 implementation(libs.kotlin.testJunit)
-                implementation(libs.junit)
+                //implementation(libs.junit)
                 runtimeOnly(libs.junit.platform.launcher)
             }
         }

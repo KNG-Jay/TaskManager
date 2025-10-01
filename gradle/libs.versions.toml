@@ -18,6 +18,7 @@ kotlinx-serialization = "2.2.20"
 kotlinx-coroutines = "1.10.2"
 mongodbDriverBom = "5.6.0"
 springdocOpenapi = "1.8.0"
+coil = "3.3.0"
 
 [libraries]
 bson-kotlinx = { module = "org.mongodb:bson-kotlinx", version.ref = "mongodbDriverBom" }
@@ -46,6 +47,8 @@ spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-start
 spring-security-test = { module = "org.springframework.security:spring-security-test", version = "6.5.5" }
 springdoc-openapi-kotlin = { module = "org.springdoc:springdoc-openapi-kotlin", version.ref = "springdocOpenapi" }
 springdoc-openapi-ui = { module = "org.springdoc:springdoc-openapi-ui", version.ref = "springdocOpenapi" }
+coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
+coil-network = { module = "io.coil-kt.coil3:coil-network-okhttp", version.ref = "coil" }
 
 [plugins]
 spring-boot = { id = "org.springframework.boot", version.ref = "springVersion"}
