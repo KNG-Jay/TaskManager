@@ -18,7 +18,8 @@ data class Task(
 data class Contents(
     var textEntries: List<String>,
     var imageAttachments: List<PersistedImage>?,
-    var filesAttachments: List<File>?,
+    // TODO: ( IMPLEMENT FILE ATTACHMENTS )
+    //var filesAttachments: List<File>?,
 )
 
 data class PersistedImage(

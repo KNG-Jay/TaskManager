@@ -71,11 +71,13 @@ class TaskServices(@Autowired private val repository: TaskRepository) {
             .orElseThrow { TaskNotFoundException(id) }
     }
 
-    fun updateTask(id: String, newTask: Task) {
+    fun updateTask(id: String, newTask: Task): Task? {
             return repository.findById(id).map { existingTask ->
                 existingTask.timeStamp = "UPDATED: ${getTimestamp()}"
                 existingTask.title = newTask.title
                 existingTask.contents = newTask.contents
+
+                repository.save(existingTask)
             }.orElseThrow { TaskNotFoundException(id) }
     }
 
