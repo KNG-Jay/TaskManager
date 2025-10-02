@@ -51,7 +51,7 @@ FROM eclipse-temurin:21-jre-alpine AS final
 
 # Port Location
 EXPOSE 8081
-
+VOLUME /tmp
 # Copy Over Jar
 COPY server/build/libs/server-jvm-1.0-all.jar /app/server-jvm.jar
 # Change Directory

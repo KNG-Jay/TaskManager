@@ -6,6 +6,7 @@
 
 services:
   springboot-api:
+    image: server-springboot-api
     build:
       context: ..
       dockerfile: ./server/Dockerfile
@@ -15,10 +16,18 @@ services:
       - 8.8.8.8
       - 8.8.4.4
     environment:
-      SPRING_PROFILES_ACTIVE: "dev"
       # TODO: ( MAKE THIS MODULAR -- NO HARDCODED SENSITIVE DATA )
-      MONGODB_URI: "mongodb+srv://KNG-Jay:Iwaki0CjkHTtiHTt@clustermain.uljbnaj.mongodb.net/?retryWrites=true&w=majority&appName=ClusterMain"
-      PORT: "8081"
+      - SPRING_DATA_MONGODB_URI=mongodb+srv://KNG-Jay:Iwaki0CjkHTtiHTt@clustermain.uljbnaj.mongodb.net/ClusterMain?retryWrites=true&w=majority
+      - SPRING_PROFILES_ACTIVE=dev
+        #PORT: "8081"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    #driver: host
+    driver: bridge
+
 
 
 #  mongo:
